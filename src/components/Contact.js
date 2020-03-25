@@ -1,6 +1,7 @@
 import React from "react";
 import axios from 'axios';
 import "../App.css";
+import "../css/contact.css";
 //import nodemailer from "nodemailer";
 
 
@@ -9,37 +10,37 @@ class Contact extends React.Component{
   
   constructor(props){
 	super(props);
-	this.state = {
-  	name: '',
-  	email: '',
-  	message: ''
-	}
+    this.state = {
+      name: '',
+      email: '',
+      message: ''
+    };
   }
 
   handleSubmit(e){
     e.preventDefault();
     axios({
-      method: "POST", 
-      url:"http://localhost:3002/send", 
-      data:  this.state
-    }).then((response)=>{
-      if (response.data.status === 'success'){
-        alert("Message Sent."); 
-        this.resetForm()
-      }else if(response.data.status === 'fail'){
-        alert("Message failed to send.")
+      method: "POST",
+      url: "http://localhost:3002/send",
+      data: this.state
+    }).then((response) => {
+      if (response.data.status === 'success') {
+        alert("Message Sent.");
+        this.resetForm();
+      } else if (response.data.status === 'fail') {
+        alert("Message failed to send.");
       }
-    })
+    });
   }
 
   resetForm(){
     
-     this.setState({name: '', email: '', message:''})
+    this.setState({ name: '', email: '', message: '' });
   }
   
   render() {
 	return(
-  	<div className="App">
+  	<div className="contact">
   	<form id="contact-form" onSubmit={this.handleSubmit.bind(this)} method="POST">
   	<div className="form-group">
       	<label htmlFor="name">Name</label>
@@ -54,7 +55,7 @@ class Contact extends React.Component{
       	<textarea className="form-control" rows="5" id="message" value={this.state.message} onChange={this.onMessageChange.bind(this)} />
   	</div>
                 <button type="submit" className="btn btn-primary">Submit</button>
-                <button type="reset" className="btn btn-primay">Cancel</button>
+               <button type="reset" className="btn btn-primay">Cancel</button>
   	</form>
   	</div>
 	);
